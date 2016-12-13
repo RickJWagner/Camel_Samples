@@ -1,0 +1,51 @@
+<!-- 
+
+README
+This is the pom.xml file, it tells maven how to build the application.
+To compile the application, have a command prompt in the same directory as pom.xml and type 'mvn clean package'.
+To run the application (after packaging it), type 'mvn  exec:java -Dexec.mainClass=camelapp1.CronGreeter'
+
+Notice this file lists the 'dependencies' for the project.  You'll add Camel libraries here when you
+want to add more functionality (like web services, jms, etc)
+ -->
+
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.sample</groupId>
+  <artifactId>camelapp1</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>Camel_App_1</name>
+  
+ <dependencies>
+
+	<dependency>
+	  <groupId>org.apache.camel</groupId>
+	  <artifactId>camel-core</artifactId>
+	  <version>2.18.1</version>
+	</dependency>
+    
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+      <version>1.7.5</version>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <plugins>
+
+      <!-- Allows the example to be run via 'mvn compile exec:java' -->
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <configuration>
+          <includePluginDependencies>false</includePluginDependencies>
+        </configuration>
+      </plugin>
+    </plugins>
+
+</build> 
+  
+</project>
