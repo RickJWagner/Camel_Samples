@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd        
+        http://camel.apache.org/schema/spring 
+        http://camel.apache.org/schema/spring/camel-spring.xsd
+        http://camel.apache.org/schema/cxf
+        http://camel.apache.org/schema/cxf/camel-cxf.xsd" >
+   
+
+    <cxf:cxfEndpoint
+        id="firstEndpoint"
+        address="http://localhost:8080/example-camel-cxf/greeting"
+        serviceClass="org.wildfly.camel.examples.cxf.GreetingService"/>
+
+
+    <cxf:cxfEndpoint
+        id="dateEndpoint"
+        address="http://localhost:8080/example-camel-cxf/fetchdate"
+        serviceClass="org.wildfly.camel.examples.cxf.DateService"/>
+
+
+
+
+    <camelContext id="web-service-callers"
+        xmlns="http://camel.apache.org/schema/spring" xmlns:order="http://fabric8.com/examples/order/v7">
+    
+    
+        <route id="_route1">
+            <from id="_from1" uri="direct-vm:start"/>
+            <to id="_to1" uri="cxf:bean:firstEndpoint"/>
+        </route>
+
+
+        <route id="_route2">
+            <from id="_from2" uri="direct-vm:fetchdate"/>
+            <doTry>
+                <to id="_to2" uri="cxf:bean:dateEndpoint"/>
+                <doCatch>
+                    <!-- catch multiple exceptions -->
+                    <exception>java.lang.Exception</exception>
+                    <log message="Exception caught!"/>
+                    <setBody>
+                        <simple>Wednesday</simple>
+                    </setBody>
+                </doCatch>
+                <doFinally>
+                    <log message="Finally!"/>
+                </doFinally>
+            </doTry>
+        </route>
+    
+    
+    
+    
+    
+    </camelContext>
+
+
+
+
+</beans>
