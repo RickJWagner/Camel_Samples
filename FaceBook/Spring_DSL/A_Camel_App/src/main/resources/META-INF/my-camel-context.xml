@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:cxf="http://camel.apache.org/schema/cxf"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd        
+        http://camel.apache.org/schema/spring 
+        http://camel.apache.org/schema/spring/camel-spring.xsd
+        http://camel.apache.org/schema/cxf
+        http://camel.apache.org/schema/cxf/camel-cxf.xsd" >
+   
+
+
+  <bean id="facebook" class="org.apache.camel.component.facebook.config.FacebookConfiguration">
+    <property name="oAuthAppId" value="<1111111111122222>"/>
+    <property name="oAuthAppSecret" value="11111111111122222222222222"/>
+    <property name="oAuthAccessToken" value="111111111111222222222222222"/>
+  </bean>
+
+
+    <camelContext id="a-camel-context"
+        xmlns="http://camel.apache.org/schema/spring" xmlns:order="http://fabric8.com/examples/order/v7">
+    
+    
+        <route id="_route1">
+            <from uri="file:/home/rick/Junk/Camel/In" />
+            <log message="### Starting! ###"/>
+
+            <!-- This works -->
+            <setHeader headerName="CamelFacebook.reading.fields">
+                <simple>comments.limit(5)</simple>
+            </setHeader>
+            <setHeader headerName="CamelFacebook.summary">
+                <simple>true</simple>
+            </setHeader>
+            <to uri="facebook://getFeed?userId=a_user" />
+
+              
+            <!-- This fails.  Cant parse the args
+            <to uri="facebook://getFeed?userId=a_user&reading.fields=comments.limit(5);" />
+             -->
+
+            <!-- this works
+            <to uri="facebook://getFeed?
+                     userId=a_user&amp;
+                    reading.fields=comments.limit(5)&amp;
+                    reading.limit=5&amp;
+                    oAuthAppId=111111222222222&amp;
+                    oAuthAppSecret=111111111111111222222222222222&amp;
+                    oAuthAccessToken=11111111111111111111111222222222222222"/>
+            -->
+
+
+
+
+            <log message="### Got ${body} ###"/>
+            <log message="### DONE! ###"/>
+        </route>    
+    
+    </camelContext>
+
+
+
+
+</beans>
