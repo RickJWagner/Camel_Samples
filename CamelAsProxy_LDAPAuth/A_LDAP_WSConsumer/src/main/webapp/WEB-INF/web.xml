@@ -1,0 +1,30 @@
+<web-app>
+
+
+
+
+
+    <security-constraint>
+           <web-resource-collection>
+               <web-resource-name>Secure Content</web-resource-name>
+               <!--
+               <url-pattern>/jaxws</url-pattern>
+               <url-pattern>/*</url-pattern>
+               -->
+               <url-pattern>/*</url-pattern>
+           </web-resource-collection>
+
+           <auth-constraint>
+               <role-name>Manager</role-name>
+           </auth-constraint>
+   </security-constraint>
+
+   <security-role>
+      <role-name>Manager</role-name>
+   </security-role>
+
+    <login-config>
+      <auth-method>BASIC</auth-method>
+      <realm-name>Sample LDAP Domain</realm-name> <!--NOTE: This is simply a Display Name-->
+    </login-config>
+</web-app>
