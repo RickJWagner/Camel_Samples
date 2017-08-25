@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<blueprint xmlns="http://www.osgi.org/xmlns/blueprint/v1.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="              http://www.osgi.org/xmlns/blueprint/v1.0.0 https://www.osgi.org/xmlns/blueprint/v1.0.0/blueprint.xsd              http://camel.apache.org/schema/blueprint http://camel.apache.org/schema/blueprint/camel-blueprint.xsd">
+    
+    
+    <bean class="org.apache.camel.component.quartz2.QuartzComponent" id="quartz2">
+        <!--
+        <property name="propertiesFile" value="org/blogdemo/demojob/myquartz.properties"/>
+        -->
+    </bean>
+     
+    
+    
+    <camelContext id="atest" xmlns="http://camel.apache.org/schema/blueprint">
+       
+         
+        <route id="quartzRoute">
+            <from id="_from2" uri="quartz2://myGroup/myTimer?cron=*+01-09+*+?+*+TUE-FRI"/>
+            <setHeader headerName="CamelFileName" id="_setHeader1">
+                <simple>MyJob-${date:now:yyyyMMdd HH:mm:ss}.txt</simple>
+            </setHeader>
+            <setBody id="_setBody1">
+                <simple>Hello This is the content from Quartz2</simple>
+            </setBody>
+            <log id="outlog" message="done with quartz route! ${body}"/>
+        </route>
+        
+    </camelContext>
+</blueprint>
