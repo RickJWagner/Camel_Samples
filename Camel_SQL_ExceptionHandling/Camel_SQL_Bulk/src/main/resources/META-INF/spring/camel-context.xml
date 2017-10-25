@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://172.17.0.2:3306/ricks_test_db" />
+        <property name="username" value="rick" />
+        <property name="password" value="password" />
+    </bean>
+    <bean class="org.apache.camel.component.sql.SqlComponent" id="sql">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    <bean class="org.sample.TestTableMapMaker" id="msgMapper" />
+    <camelContext id="cbr-example-context" xmlns="http://camel.apache.org/schema/spring">
+        <propertyPlaceholder id="placeholder" location="classpath:sql.properties" />
+        <route id="primary-route">
+            <from id="_from1" uri="file:/home/rick/Junk/Camel/In" />
+             
+            <onException>
+                <exception>org.springframework.jdbc.UncategorizedSQLException</exception>
+                <handled>
+                    <constant>true</constant>
+                </handled>
+                <log id="_exc_log1" message="Had an Exception! ${body}" />
+                <to uri="direct:split_and_resend" />
+            </onException>
+             
+            <bean id="_bean1" method="makeList" ref="msgMapper" />
+            <log id="_log1" message="Receiving file ${body}" />
+            <to id="_to1" uri="sql:{{sql.insertMessage}}?batch=true" />
+        </route>
+        <route id="exception-route">
+            <from uri="direct:split_and_resend" />
+            <onException>
+                <exception>org.springframework.jdbc.UncategorizedSQLException</exception>
+                <handled>
+                    <constant>true</constant>
+                </handled>
+                <log id="_exc_log2" message="This one cant be handled! ${body}" />
+            </onException>
+            <split>
+                <simple>${body}</simple>
+                <log message="Processing message ${body}" />
+                <to id="_to2" uri="sql:{{sql.insertMessage}}" />
+            </split>
+        </route>
+    </camelContext>
+</beans>
