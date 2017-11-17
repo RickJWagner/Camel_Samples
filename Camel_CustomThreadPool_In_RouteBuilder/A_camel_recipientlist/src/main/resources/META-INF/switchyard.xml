@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<switchyard xmlns="urn:switchyard-config:switchyard:1.0" xmlns:_1="urn:switchyard-component-bean:config:1.0" xmlns:camel="urn:switchyard-component-camel:config:1.0" xmlns:file="urn:switchyard-component-camel-file:config:1.0" xmlns:sca="http://docs.oasis-open.org/ns/opencsa/sca/200912">
+  <sca:composite name="camel-binding" targetNamespace="urn:switchyard-quickstart:camel-binding:0.1.0">
+    <sca:service name="GreetingService" promote="GreetingService/GreetingService">
+      <file:binding.file>
+        <operationSelector operationName="greet"/>
+        <file:directory>/home/rick/Junk/Camel/In</file:directory>
+        <file:consume>
+          <file:initialDelay>10</file:initialDelay>
+          <file:delay>10</file:delay>
+          <file:delete>true</file:delete>
+        </file:consume>
+      </file:binding.file>
+    </sca:service>
+    <sca:component name="GreetingService">
+      <camel:implementation.camel>
+        <camel:java class="org.switchyard.quickstarts.camel.binding.CamelGreetingServiceRoute"/>
+      </camel:implementation.camel>
+      <sca:service name="GreetingService">
+        <sca:interface.java interface="org.switchyard.quickstarts.camel.binding.GreetingService"/>
+      </sca:service>
+    </sca:component>
+  </sca:composite>
+</switchyard>
