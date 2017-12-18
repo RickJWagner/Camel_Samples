@@ -21,8 +21,19 @@
            Issue 2:
            
               A property with a 'dot' in the name (i.e. 'property.one') does not allow expected set/get functionality.
+              (Maybe this is expected.)
            
-            -->           
+            -->        
+            
+            
+            
+            <!--   SOLUTION FOUND:  Use double-curly brackets to specify the property 'Camel style' rather than 'Spring'
+              The following sample works, does not produce the WARN messages.
+            <setProperty id="_setProperty2" propertyName="plainpropertytwo">
+                <simple>${{type:org.test.Test.TEST}}</simple>
+            </setProperty>
+            <log id="_log2" message="Property Two: $simple{in.header.plainpropertytwo}"/>
+            -->
            
            
            <!--  
