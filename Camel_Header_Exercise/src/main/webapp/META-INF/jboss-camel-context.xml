@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <bean class="org.test.MyBean" id="helloBean"/>
+    <camelContext id="spring-context" xmlns="http://camel.apache.org/schema/spring">
+        <route id="_route1">
+             
+            <from id="_from1" uri="direct:start"/>
+           
+           
+           <!-- 
+           
+           This project demonstrates two issues that need to be explained.
+           
+           Issue 1:  At runtime, this context shows the following warning:
+           
+               Cannot load 'org.test.Test.TEST' from module: deployment.camel-test-spring.war:main
+           
+               But the referenced static String (org.test.Test.TEST) is found and displayed properly in some cases.
+           
+           Issue 2:
+           
+              A property with a 'dot' in the name (i.e. 'property.one') does not allow expected set/get functionality.
+           
+            -->           
+           
+           
+           <!--  
+             First property has a 'dot' in the name, it does not seem to be addressable.  The log action will fail.
+           -->
+            <setProperty id="_setProperty1" propertyName="property.one">
+                <simple>${type:org.test.Test.TEST}</simple>
+            </setProperty>
+            <log id="_log1" message="Property One: $simple{in.header.property.one}"/>
+
+
+           <!--  
+             Second property has a name without a 'dot'.  The log action works as expected.
+           -->            
+            <setProperty id="_setProperty2" propertyName="plainpropertytwo">
+                <simple>${type:org.test.Test.TEST}</simple>
+            </setProperty>
+            <log id="_log2" message="Property Two: $simple{in.header.plainpropertytwo}"/>
+            
+            
+            <bean id="_bean1" ref="helloBean"/>
+        </route>
+    </camelContext>
+</beans>
