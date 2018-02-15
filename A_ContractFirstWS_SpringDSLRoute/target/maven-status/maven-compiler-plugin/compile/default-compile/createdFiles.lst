@@ -1,0 +1,9 @@
+org/wildfly/camel/examples/jaxws/contractfirst/Greeting_Service.class
+org/wildfly/camel/examples/jaxws/contractfirst/GreetWithMessageResponse.class
+org/wildfly/camel/examples/jaxws/contractfirst/GreetingServiceImplPortImpl.class
+org/wildfly/camel/examples/jaxws/contractfirst/ObjectFactory.class
+org/wildfly/camel/examples/jaxws/contractfirst/GreetWithMessage.class
+org/wildfly/camel/examples/jaxws/HelloBean.class
+org/wildfly/camel/examples/jaxws/contractfirst/package-info.class
+org/wildfly/camel/examples/jaxws/JaxwsServlet.class
+org/wildfly/camel/examples/jaxws/contractfirst/Greeting.class

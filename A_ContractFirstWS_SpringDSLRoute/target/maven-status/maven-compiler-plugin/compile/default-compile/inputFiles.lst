@@ -1,0 +1,9 @@
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/ObjectFactory.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/GreetWithMessage.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/package-info.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/HelloBean.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/GreetingServiceImplPortImpl.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/JaxwsServlet.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/GreetWithMessageResponse.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/Greeting.java
+/home/rick/Tools/A/Fuse6.3/jboss-eap-6.4/quickstarts/camel/A_ContractFirstWS_SpringDSLRoute/src/main/java/org/wildfly/camel/examples/jaxws/contractfirst/Greeting_Service.java
