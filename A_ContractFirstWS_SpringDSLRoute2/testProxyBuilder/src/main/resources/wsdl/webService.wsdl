@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:tns="http://test.com/WebServices/test" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdLocal="http://test.com/WebServices/test" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="http://test.com/WebServices/test">
+	<types>
+		<xsd:schema xmlns:soapenc="http://schemas.xmlsoap.org/wsdl/" elementFormDefault="qualified" targetNamespace="http://test.com/WebServices/test">
+			<xsd:element name="testRequest">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="inputMessage" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="testResponse">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element maxOccurs="1" minOccurs="1" name="outputMessage" type="xsd:string"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:schema>
+	</types>
+	<message name="testRequest">
+		<part name="testRequest" element="xsdLocal:testRequest"/>
+	</message>
+	<message name="testResponse">
+		<part name="testResponse" element="xsdLocal:testResponse"/>
+	</message>
+	<portType name="testPortType">
+		<operation name="test">
+			<input message="tns:testRequest"/>
+			<output message="tns:testResponse"/>
+		</operation>
+	</portType>
+	<binding name="testSOAPBinding" type="tns:testPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<operation name="test">
+			<soap:operation soapAction="http://com.test.webservices.it/WebServices/test"/>
+			<input>
+				<soap:body use="literal"/>
+			</input>
+			<output>
+				<soap:body use="literal"/>
+			</output>
+		</operation>
+	</binding>
+	<service name="test">
+		<port name="testPortType" binding="tns:testSOAPBinding">
+			<soap:address location="http://localhost:8080/WebServicesSrv/test"/>
+		</port>
+	</service>
+</definitions>

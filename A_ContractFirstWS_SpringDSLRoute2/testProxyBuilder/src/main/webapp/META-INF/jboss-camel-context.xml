@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+   
+ 
+<bean class="org.test.MyBean" id="responseBean"/>
+
+ <camelContext xmlns="http://camel.apache.org/schema/spring" id="the-context">
+        <route id="_route1">
+            <from id="_from1" uri="direct-vm:startTest"/>
+            <log id="_log1" message="HELLO"/>
+             
+             <bean id="_bean1" ref="responseBean"/>
+             
+        </route>
+    </camelContext>
+</beans>
